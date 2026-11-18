@@ -11,13 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Lab 8',
+      title: 'Lab 9',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
         useMaterial3: false,
 
-        // Стилізація тексту (для заголовків екранів)
+        // Стилізація заголовків
         textTheme: const TextTheme(
           headlineSmall: TextStyle(
             fontSize: 22,
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // Стилізація всіх полів вводу TextField
+        // Стилізація полів вводу та помилок валідації
         inputDecorationTheme: InputDecorationTheme(
           filled: true,
           fillColor: Colors.indigo.withOpacity(0.05),
@@ -42,9 +42,17 @@ class MyApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Colors.indigo, width: 2),
           ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.red, width: 1.5),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.red, width: 2),
+          ),
         ),
 
-        // Стилізація всіх ElevatedButton
+        // Стилізація ElevatedButton
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.indigo,
@@ -57,7 +65,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // Стилізація всіх OutlinedButton
+        // Стилізація OutlinedButton
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: OutlinedButton.styleFrom(
             foregroundColor: Colors.indigo,
@@ -70,7 +78,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
 
-        // Стилізація всіх TextButton
+        // Стилізація TextButton
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(
             foregroundColor: Colors.indigo,
@@ -79,7 +87,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const SignInScreen(),
+      home: SignInScreen(),
     );
   }
 }
