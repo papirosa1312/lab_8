@@ -108,7 +108,7 @@ class SignupScreen extends StatelessWidget {
                                 title: const Text('Message'),
                                 content: Text(
                                   success
-                                      ? 'Реєстраційні дані надіслано!'
+                                      ? 'Реєстраційні дані надіслано!!!'
                                       : 'Помилка відправки запиту!',
                                 ),
                               );
