@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import '../api_service.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _apiService = ApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +34,7 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
+                controller: _nameController,
                 decoration: const InputDecoration(
                   labelText: 'Name',
                 ),
@@ -41,6 +47,7 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12.0),
               TextFormField(
+                controller: _emailController,
                 decoration: const InputDecoration(
                   labelText: 'Email',
                 ),
@@ -57,6 +64,7 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 12.0),
               TextFormField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: const InputDecoration(
                   labelText: 'Password',
@@ -85,14 +93,24 @@ class SignupScreen extends StatelessWidget {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          final success = await _apiService.sendSignUp(
+                            _nameController.text.trim(),
+                            _emailController.text.trim(),
+                            _passwordController.text,
+                          );
+                          if (!context.mounted) return;
                           showDialog(
                             context: context,
                             builder: (BuildContext ctx) {
-                              return const AlertDialog(
-                                title: Text('Message'),
-                                content: Text("Need to implement"),
+                              return AlertDialog(
+                                title: const Text('Message'),
+                                content: Text(
+                                  success
+                                      ? 'Реєстраційні дані надіслано!'
+                                      : 'Помилка відправки запиту',
+                                ),
                               );
                             },
                           );

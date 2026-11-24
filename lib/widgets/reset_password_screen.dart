@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import '../api_service.dart';
 
 class ResetPasswordScreen extends StatelessWidget {
   ResetPasswordScreen({super.key});
 
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _apiService = ApiService();
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,7 @@ class ResetPasswordScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16.0),
               TextFormField(
+                controller: _emailController,
                 decoration: const InputDecoration(
                   labelText: 'Email',
                 ),
@@ -57,14 +61,22 @@ class ResetPasswordScreen extends StatelessWidget {
                   const SizedBox(width: 16.0),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (_formKey.currentState!.validate()) {
+                          final success = await _apiService.sendResetPassword(
+                            _emailController.text.trim(),
+                          );
+                          if (!context.mounted) return;
                           showDialog(
                             context: context,
                             builder: (BuildContext ctx) {
-                              return const AlertDialog(
-                                title: Text('Message'),
-                                content: Text("Need to implement"),
+                              return AlertDialog(
+                                title: const Text('Message'),
+                                content: Text(
+                                  success
+                                      ? 'Запит на відновлення пароля надіслано!'
+                                      : 'Помилка відправки запиту',
+                                ),
                               );
                             },
                           );
