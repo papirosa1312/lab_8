@@ -109,7 +109,7 @@ class SignupScreen extends StatelessWidget {
                                 content: Text(
                                   success
                                       ? 'Реєстраційні дані надіслано!'
-                                      : 'Помилка відправки запиту',
+                                      : 'Помилка відправки запиту!',
                                 ),
                               );
                             },
